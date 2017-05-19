@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h2>Listado de personal</h2>
+        <h:form>
+            <h:commandLink action="/home" value="Home"/>
+            &nbsp;<h:commandLink action="nuevoPersonal" value="Nueva personal"/>
+        </h:form>
+        <c:set var="numreg" value="#{personalbean.listarPersonal().size()}"/>
+        <h:panelGroup rendered="#{numreg gt 0}">
+            <h:form>
+                <h:dataTable value="#{personalbean.listarPersonal()}" var="personal" border="1">
+                    <h:column>
+                        <f:facet name="codigo">
+                            <h:outputText value="Codigo"/>
+                        </f:facet>
+                        <h:outputText value="#{personal.codigo_p}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="nombre">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{personal.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="direccion">
+                            <h:outputText value="Direccion"/>
+                        </f:facet>
+                        <h:outputText value="#{personal.direccion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="nif">
+                            <h:outputText value="NIF"/>
+                        </f:facet>
+                        <h:outputText value="#{personal.NIF}"/>
+                    </h:column>
+                    <h:column>
+                        <!--nombre del personal de contacto-->
+                        <f:facet name="nombrealoja">
+                            <h:outputText value="Alojamiento"/>
+                        </f:facet>
+                        <h:outputText value="#{personal.alojamiento.nombre_alojamiento}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="opcion1">
+                            <h:outputText value="Opcion1"/>
+                        </f:facet>
+                        <h:commandLink value="Eliminar"  action="#{personalbean.vistaElimina(personal.codigo_p)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="opcion2">
+                            <h:outputText value="Opcion2"/>
+                        </f:facet>
+                        <h:commandLink value="Actualizar" action="#{personalbean.vistaActualiza(personal.codigo_p)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </h:panelGroup>
+    </h:body>
+</html>
+

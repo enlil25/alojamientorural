@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Eliminar habitacion</h1>
+        <p style="background-color: lightgrey">
+            <h:outputText value="#{habitacionbean.mensaje}"/>
+        </p>
+        <h:form>
+            <h:inputHidden value="#{habitacionbean.habitacion.id.alojamiento.nombre_alojamiento}"/>
+            <h:inputHidden value="#{habitacionbean.habitacion.id.numero_habitacion}"/>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="numhab" value="Numero Habitacion"/>
+                <h:outputText id="numhab" value="#{habitacionbean.habitacion.id.numero_habitacion}"/>
+                <h:outputLabel for="nomaloja" value="Nombre Alojamiento"/>
+                <h:outputText value="#{habitacionbean.habitacion.id.alojamiento.nombre_alojamiento}"/>
+                <h:outputLabel for="tipo" value="Tipo"/>
+                <h:outputText value="#{habitacionbean.habitacion.tipo}"/>
+                <h:outputLabel value="Banio"/>
+                <h:outputText value="#{habitacionbean.habitacion.banio? 'si':'no'}"/>
+                <h:outputLabel value="Precio"/>
+                <h:outputText value="#{habitacionbean.habitacion.precio}"/>
+                <h:commandButton action="#{habitacionbean.eliminar}" value="Eliminar habitacion"/>
+            </h:panelGrid>
+        </h:form>
+        
+        <h:form>
+            <h:commandLink action="/home" value="Home"/>
+            &nbsp;<h:commandLink action="listarHabitaciones" value="Listar habitaciones"/>
+            &nbsp;<h:commandLink action="NuevaHabitacion" value="Nueva habitacion"/>
+        </h:form>
+    </h:body>
+</html>
+

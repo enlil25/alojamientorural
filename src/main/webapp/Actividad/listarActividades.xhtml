@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Listado de actividades</title>
+    </h:head>
+    <h:body>
+        <h2>Lista de Actividades</h2>
+          <h:form>
+            <h:commandLink action="/home" value="Home"/>
+            &nbsp;<h:commandLink action="nuevaActividad" value="Nueva actividad"/>
+        </h:form>
+        <h:form>
+            <h:dataTable value="#{actividadbean.listarActividades()}" var="actividad" border="1">
+                <h:column>
+                    <f:facet name="codigo">
+                        <h:outputText value="Codigo"/>
+                    </f:facet>
+                    <h:outputText value="#{actividad.codigo_activ}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="nombre">
+                        <h:outputText value="Nombre"/>
+                    </f:facet>
+                    <h:outputText value="#{actividad.nombre}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="descripcion">
+                        <h:outputText value="Descripcion"/>
+                    </f:facet>
+                    <h:outputText value="#{actividad.descripcion}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="dificultad">
+                        <h:outputText value="Dificultad"/>
+                    </f:facet>
+                    <h:outputText value="#{actividad.nivel_dificultad}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="opcion1">
+                        <h:outputText value="Opcion1"/>
+                    </f:facet>
+                    <h:commandLink value="Eliminar"  action="#{actividadbean.vistaElimina(actividad.codigo_activ)}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="opcion2">
+                        <h:outputText value="Opcion2"/>
+                    </f:facet>
+                    <h:commandLink value="Actualizar" action="#{actividadbean.vistaActualiza(actividad.codigo_activ)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</html>
+

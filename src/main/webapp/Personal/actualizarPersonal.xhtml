@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h1>Actualizar personal</h1>   
+        <p style="background-color:lightgrey">#{personalbean.mensaje}</p>
+        <h:form>
+            <h:inputHidden value="#{personalbean.personal.codigo_p}" />
+            <h:panelGrid columns="2">   
+                <h:outputLabel for="nombre" value="Nombre"/>
+                <h:inputText value="#{personalbean.personal.nombre}" id="nombre"/>
+                <h:outputLabel for="direccion" value="Direccion"/>
+                <h:inputText value="#{personalbean.personal.direccion}" id="direccion"/>
+                <h:outputLabel for="nif" value="NIF"/>
+                <h:inputText value="#{personalbean.personal.NIF}" id="nif"/>
+                <h:outputLabel for="alojamiento" value="Alojamiento donde trabaja"/>
+                <h:selectOneMenu value="#{personalbean.alojamientoSeleccionado}">
+                    <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                    <f:selectItems value="#{personalbean.listSelectItems}"/>
+                </h:selectOneMenu>
+                <h:commandButton action="#{personalbean.actualizarPersonal}" value="Actualizar Personal"/>
+            </h:panelGrid>
+        </h:form>
+        <h:form>
+            <h:commandLink action="/home" value="Home"/>
+            &nbsp;<h:commandLink action="listarPersonal" value="Listar personal"/>
+            &nbsp;<h:commandLink action="nuevoPersonal" value="Nuevo personal"/>
+        </h:form>
+    </h:body>
+</html>
+

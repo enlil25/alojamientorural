@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+      
+    </h:head>
+    <h:body>
+        <h2>Asignacion de actividades de Alojamiento</h2>
+        <h:form>
+            <h:commandLink action="/home" value="Home"/>
+            &nbsp;<h:commandLink action="/Actividad/nuevaActividad" value="Nueva actividad"/>
+            &nbsp;<h:commandLink action="/Actividad/listarActividades" value="Listar actividades"/>
+            &nbsp;<h:commandLink action="/Alojamiento/nuevoAlojamiento" value="Nueva alojamiento"/>
+            &nbsp;<h:commandLink action="/Alojamiento/listarAlojamientos" value="Listar alojamientos"/>
+        </h:form>
+
+        <h:form>
+            <h:outputLabel value="Alojamiento"/>
+            <h:selectOneMenu value="#{asignaactividadbean.codigoaloja}">
+                <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                <f:selectItems value="#{asignaactividadbean.selectAlojamientos}"/>
+            </h:selectOneMenu>
+            <h:commandButton action="#{asignaactividadbean.verAsignaciones}" value="Mostrar asignaciones"/>
+        </h:form>
+
+        <h:outputText style="background-color: lightgrey;" value="#{asignaactividadbean.mensaje}"/>
+        <c:set var="numasig" value="#{asignaactividadbean.asignaciones.size()}"/>
+
+
+        <h:panelGroup rendered="#{numasig gt 0}">
+            <h:form onsubmit="return confirmarEliminacion();">  
+                <h:dataTable value="#{asignaactividadbean.asignaciones}" var="asignacion" border="1">
+                    <h:column>
+                        <f:facet name="codigo">
+                            <h:outputText value="Codigo actividad."/>
+                        </f:facet>
+                        <h:outputText value="#{asignacion.id.actividad.codigo_activ}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="nombre">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{asignacion.id.actividad.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="diasem">
+                            <h:outputText value="Dia sem."/>
+                        </f:facet>
+                        <h:outputText value="#{asignacion.diaSemana}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="opcion">
+                            <h:outputText value="Opcion"/>
+                        </f:facet>
+
+                        <h:commandLink action="#{asignaactividadbean.eliminarAsignacion(asignacion.id)}" value="eliminar"/> 
+                    </h:column>
+
+                </h:dataTable>
+            </h:form>
+        </h:panelGroup>
+        
+        <h:panelGroup layout="block">
+            <h3>Crear Asignacion</h3>
+            <h:form>
+                <h:outputText value="Alojamiento"/>
+                <h:selectOneMenu value="#{asignaactividadbean.alojaSel}">
+                    <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                    <f:selectItems value="#{asignaactividadbean.selectAlojamientos}"/>
+                </h:selectOneMenu>
+                <h:outputText value="Dia Sem."/>
+                <h:selectOneMenu value="#{asignaactividadbean.diaSemana}">
+                    <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                    <f:selectItem itemLabel="Lunes" itemValue="lunes"/>
+                    <f:selectItem itemLabel="Martes" itemValue="martes"/>
+                    <f:selectItem itemLabel="Miercoles" itemValue="miercoles"/>
+                    <f:selectItem itemLabel="Jueves" itemValue="jueves"/>
+                    <f:selectItem itemLabel="Viernes" itemValue="viernes"/>
+                    <f:selectItem itemLabel="Sabado" itemValue="sabado"/>
+                    <f:selectItem itemLabel="Domingo" itemValue="domingo"/>
+                </h:selectOneMenu>
+                <h:outputText value="Actividad"/>
+                <h:selectOneMenu value="#{asignaactividadbean.actividadSel}">
+                    <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                    <f:selectItems value="#{asignaactividadbean.selectActividades}"/>
+                </h:selectOneMenu>
+                <h:commandButton action="#{asignaactividadbean.asignar}" value="Asignar"/>
+            </h:form>
+        </h:panelGroup>
+
+  <h:outputScript library="js" name="funciones.js"/>
+    </h:body>
+</html>
+
