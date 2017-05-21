@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title> <ui:insert name="title">Alojamiento Rural</ui:insert> </title>
+        <h:outputStylesheet library="webjars" name="bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="css" name="layout.css"/>
+    </h:head>
+    <h:body>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="encabezado" class="col-xs-12">
+                    <h1 style="text-align: center;">Alojamiento Rural</h1>  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <ul id="menu" class="list-unstyled">
+                        <li><h:link value="Pagina principal" outcome="/home.xhtml"/> </li>
+                        <li><h:link value="Crear Actividad" outcome="/Actividad/nuevaActividad.xhtml"/> </li>
+                        <li><h:link value="Listar Actividades" outcome="/Actividad/listarActividades.xhtml"/> </li>
+                        <li><h:link value="Asignar Actividades" outcome="/Asignaciones/AsignacionActividades.xhtml"/> </li>
+                        <li><h:link value="Crear Alojamiento" outcome="/Alojamiento/nuevoAlojamiento.xhtml"/> </li>
+                        <li><h:link value="Listar Alojamientos" outcome="/Alojamiento/listarAlojamientos.xhtml"/> </li>
+                        <li><h:link value="Crear Personal" outcome="/Personal/nuevoPersonal.xhtml"/> </li>
+                        <li><h:link value="Listar Personal" outcome="/Personal/listarPersonal.xhtml"/> </li>
+                        <li><h:link value="Crear Habitacion" outcome="/Habitacion/NuevaHabitacion.xhtml"/> </li>
+                        <li><h:link value="Listar Habitaciones" outcome="/Habitacion/listarHabitaciones.xhtml"/> </li>
+                    </ul>                 
+                </div>
+                <div class="col-xs-12 col-sm-9">
+                    <ui:insert name="content"></ui:insert> 
+                </div>
+            </div>
+        </div>
+        <!-- 
+         <h:outputScript library="webjars" name="jquery/1.11.1/jquery.min.js"/>
+         <h:outputScript library="webjars" name="bootstrap/3.3.5/js/bootstrap.min.js"/>
+        -->
+    </h:body>
+</html>
+
