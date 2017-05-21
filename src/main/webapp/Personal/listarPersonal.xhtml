@@ -18,44 +18,44 @@
             <h:form>
                 <h:dataTable value="#{personalbean.listarPersonal()}" var="personal" border="1">
                     <h:column>
-                        <f:facet name="codigo">
+                        <f:facet name="header">
                             <h:outputText value="Codigo"/>
                         </f:facet>
                         <h:outputText value="#{personal.codigo_p}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="nombre">
+                        <f:facet name="header">
                             <h:outputText value="Nombre"/>
                         </f:facet>
                         <h:outputText value="#{personal.nombre}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="direccion">
+                        <f:facet name="header">
                             <h:outputText value="Direccion"/>
                         </f:facet>
                         <h:outputText value="#{personal.direccion}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="nif">
+                        <f:facet name="header">
                             <h:outputText value="NIF"/>
                         </f:facet>
                         <h:outputText value="#{personal.NIF}"/>
                     </h:column>
                     <h:column>
                         <!--nombre del personal de contacto-->
-                        <f:facet name="nombrealoja">
+                        <f:facet name="header">
                             <h:outputText value="Alojamiento"/>
                         </f:facet>
                         <h:outputText value="#{personal.alojamiento.nombre_alojamiento}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="opcion1">
+                        <f:facet name="header">
                             <h:outputText value="Opcion1"/>
                         </f:facet>
                         <h:commandLink value="Eliminar"  action="#{personalbean.vistaElimina(personal.codigo_p)}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="opcion2">
+                        <f:facet name="header">
                             <h:outputText value="Opcion2"/>
                         </f:facet>
                         <h:commandLink value="Actualizar" action="#{personalbean.vistaActualiza(personal.codigo_p)}"/>

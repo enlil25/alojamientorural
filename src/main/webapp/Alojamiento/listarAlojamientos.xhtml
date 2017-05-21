@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -12,53 +13,56 @@
             <h:commandLink action="/home" value="Home"/>
             &nbsp;<h:commandLink action="nuevoAlojamiento" value="Nueva alojamiento"/>
         </h:form>
-        <h:form>
-            <h:dataTable value="#{alojamientobean.listarAlojamientos()}" var="alojamiento" border="1">
-                <h:column>
-                    <f:facet name="nombre">
-                        <h:outputText value="Nombre"/>
-                    </f:facet>
-                    <h:outputText value="#{alojamiento.nombre_alojamiento}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="telefono">
-                        <h:outputText value="Telefono"/>
-                    </f:facet>
-                    <h:outputText value="#{alojamiento.telefono}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="direccion">
-                        <h:outputText value="Direccion"/>
-                    </f:facet>
-                    <h:outputText value="#{alojamiento.direccion}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="totalhab">
-                        <h:outputText value="Total Habitaciones"/>
-                    </f:facet>
-                    <h:outputText value="#{alojamiento.total_habitaciones}"/>
-                </h:column>
-                 <h:column>
-                     <!--nombre del personal de contacto-->
-                    <f:facet name="contacto">
-                        <h:outputText value="Contacto"/>
-                    </f:facet>
-                     <h:outputText value="#{alojamiento.contacto.nombre}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="opcion1">
-                        <h:outputText value="Opcion1"/>
-                    </f:facet>
-                    <h:commandLink value="Eliminar"  action="#{alojamientobean.vistaElimina(alojamiento.nombre_alojamiento)}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="opcion2">
-                        <h:outputText value="Opcion2"/>
-                    </f:facet>
-                    <h:commandLink value="Actualizar" action="#{alojamientobean.vistaActualiza(alojamiento.nombre_alojamiento)}"/>
-                </h:column>
-            </h:dataTable>
-        </h:form>
+        <c:set var="numaloja" value="#{alojamientobean.listarAlojamientos().size()}"/>
+        <h:panelGroup rendered="#{numaloja gt 0}">
+            <h:form>
+                <h:dataTable value="#{alojamientobean.listarAlojamientos()}" var="alojamiento" border="1">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{alojamiento.nombre_alojamiento}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Telefono"/>
+                        </f:facet>
+                        <h:outputText value="#{alojamiento.telefono}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Direccion"/>
+                        </f:facet>
+                        <h:outputText value="#{alojamiento.direccion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Total Habitaciones"/>
+                        </f:facet>
+                        <h:outputText value="#{alojamiento.total_habitaciones}"/>
+                    </h:column>
+                    <h:column>
+                        <!--nombre del personal de contacto-->
+                        <f:facet name="header">
+                            <h:outputText value="Contacto"/>
+                        </f:facet>
+                        <h:outputText value="#{alojamiento.contacto.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Opcion1"/>
+                        </f:facet>
+                        <h:commandLink value="Eliminar"  action="#{alojamientobean.vistaElimina(alojamiento.nombre_alojamiento)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Opcion2"/>
+                        </f:facet>
+                        <h:commandLink value="Actualizar" action="#{alojamientobean.vistaActualiza(alojamiento.nombre_alojamiento)}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </h:panelGroup>
     </h:body>
 </html>
 

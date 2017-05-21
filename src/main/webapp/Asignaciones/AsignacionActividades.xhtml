@@ -12,11 +12,11 @@
     <h:body>
         <h2>Asignacion de actividades de Alojamiento</h2>
         <h:form>
-            <h:commandLink action="/home" value="Home"/>
-            &nbsp;<h:commandLink action="/Actividad/nuevaActividad" value="Nueva actividad"/>
-            &nbsp;<h:commandLink action="/Actividad/listarActividades" value="Listar actividades"/>
-            &nbsp;<h:commandLink action="/Alojamiento/nuevoAlojamiento" value="Nueva alojamiento"/>
-            &nbsp;<h:commandLink action="/Alojamiento/listarAlojamientos" value="Listar alojamientos"/>
+            <h:link outcome="/home" value="Home"/>
+            &nbsp;<h:link outcome="/Actividad/nuevaActividad" value="Nueva actividad"/>
+            &nbsp;<h:link outcome="/Actividad/listarActividades" value="Listar actividades"/>
+            &nbsp;<h:link outcome="/Alojamiento/nuevoAlojamiento" value="Nueva alojamiento"/>
+            &nbsp;<h:link outcome="/Alojamiento/listarAlojamientos" value="Listar alojamientos"/>
         </h:form>
 
         <h:form>
@@ -36,25 +36,25 @@
             <h:form onsubmit="return confirmarEliminacion();">  
                 <h:dataTable value="#{asignaactividadbean.asignaciones}" var="asignacion" border="1">
                     <h:column>
-                        <f:facet name="codigo">
+                        <f:facet name="header">
                             <h:outputText value="Codigo actividad."/>
                         </f:facet>
                         <h:outputText value="#{asignacion.id.actividad.codigo_activ}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="nombre">
+                        <f:facet name="header">
                             <h:outputText value="Nombre"/>
                         </f:facet>
                         <h:outputText value="#{asignacion.id.actividad.nombre}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="diasem">
+                        <f:facet name="header">
                             <h:outputText value="Dia sem."/>
                         </f:facet>
                         <h:outputText value="#{asignacion.diaSemana}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="opcion">
+                        <f:facet name="header">
                             <h:outputText value="Opcion"/>
                         </f:facet>
 

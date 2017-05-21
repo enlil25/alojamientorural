@@ -18,44 +18,44 @@
             <h:form>
                 <h:dataTable value="#{habitacionbean.listarHabitaciones()}" var="habitacion" border="1">
                     <h:column>
-                        <f:facet name="nomaloja">
+                        <f:facet name="header">
                             <h:outputText value="Nom. Alojamiento"/>
                         </f:facet>
                         <h:outputText value="#{habitacion.id.alojamiento.nombre_alojamiento}"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="numhab">
+                        <f:facet name="header">
                             <h:outputText value="Num. habitacion"/>
                         </f:facet>
                         <h:outputText value="#{habitacion.id.numero_habitacion}"/> 
                     </h:column>
                     <h:column>
-                        <f:facet name="tipo">
+                        <f:facet name="header">
                             <h:outputText value="Tipo"/>
                         </f:facet>
                         <h:outputText value="#{habitacion.tipo}"/> 
                     </h:column>
                     <h:column>
-                        <f:facet name="banio">
+                        <f:facet name="header">
                             <h:outputText value="banio"/>
                         </f:facet>
                         <h:selectBooleanCheckbox value="#{habitacion.banio}" disabled="true"/>
 
                     </h:column>
                     <h:column>
-                        <f:facet name="precio">
+                        <f:facet name="header">
                             <h:outputText value="Precio"/>
                         </f:facet>
                         <h:outputText value="#{habitacion.precio}"/> 
                     </h:column>
                     <h:column>
-                        <f:facet name="opcion">
+                        <f:facet name="header">
                             <h:outputText value="Opcion1"/>
                         </f:facet>
                         <h:commandLink action="#{habitacionbean.vistaActualiza(habitacion.id)}" value="Actualizar"/>
                     </h:column>
                     <h:column>
-                        <f:facet name="opcion2">
+                        <f:facet name="header">
                             <h:outputText value="Opcion2"/>
                         </f:facet>
                         <h:commandLink action="#{habitacionbean.vistaElimina(habitacion.id)}" value="Eliminar"/>

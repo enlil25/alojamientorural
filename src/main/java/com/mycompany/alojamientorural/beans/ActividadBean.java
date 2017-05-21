@@ -8,7 +8,6 @@ package com.mycompany.alojamientorural.beans;
 import com.mycompany.alojamientorural.entidades.Actividad;
 import com.mycompany.alojamientorural.servicios.ActividadService;
 import com.mycompany.alojamientorural.utiles.GeneradorCodigos;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;

@@ -5,10 +5,9 @@
  */
 package com.mycompany.alojamientorural.servicios;
 
-import java.io.Serializable;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -21,7 +20,7 @@ import javax.persistence.criteria.Root;
  */
 public abstract class AbstractService<T, K> {
 
-    @PersistenceContext(unitName = "alojamiento_rural_PU")
+    @Inject
     protected EntityManager em;
 
     private Class<T> claseEntidad;
