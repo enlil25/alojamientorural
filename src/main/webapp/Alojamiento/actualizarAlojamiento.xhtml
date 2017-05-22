@@ -2,37 +2,60 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <h1>Actualizar alojamiento</h1>   
-        <p style="background-color:lightgrey">#{alojamientobean.mensaje}</p>
-        <h:form>
-            <h:inputHidden value="#{alojamientobean.alojamiento.nombre_alojamiento}" />
-            <h:panelGrid columns="2">  
-                <h:outputLabel for="nombre" value="Nombre alojamiento"/>
-                <h:outputText value="#{alojamientobean.alojamiento.nombre_alojamiento}" id="nombre"/>
-                <h:outputLabel for="direccion" value="Direccion"/>
-                <h:inputText value="#{alojamientobean.alojamiento.direccion}" id="direccion"/>
-                <h:outputLabel for="telefono" value="Telefono"/>
-                <h:inputText value="#{alojamientobean.alojamiento.telefono}" id="telefono"/>
-                <h:outputLabel for="totalhab" value="Total habitaciones"/>
-                <h:inputText value="#{alojamientobean.alojamiento.total_habitaciones}" id="totalhab"/>
-                <h:outputLabel for="contacto" value="Contacto"/>
-                <h:selectOneMenu value="#{alojamientobean.contactoSeleccionado}">
-                    <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-                    <f:selectItems value="#{alojamientobean.listSelectItems}"/>
-                </h:selectOneMenu>
-                <h:commandButton action="#{alojamientobean.actualizarAlojamiento}" value="Actualizar alojamiento"/>
-            </h:panelGrid>
-        </h:form>
-        <h:form>
-            <h:link outcome="/home" value="Home"/>
-            &nbsp;<h:link outcome="listarAlojamientos" value="Listar Alojamientos"/>
-            &nbsp;<h:link outcome="nuevoAlojamiento" value="Nuevo alojamiento"/>
-        </h:form>
-    </h:body>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/resources/templates/layout.xhtml">
+        <ui:define name="title">Editar Alojamiento</ui:define>
+        <ui:define name="content">
+            <h1>Actualizar Alojamiento</h1>   
+            <p style="background-color:lightgrey">#{alojamientobean.mensaje}</p>
+            <h:form styleClass="form-horizontal">
+                <h:inputHidden value="#{alojamientobean.alojamiento.nombre_alojamiento}" />
+
+                <h:panelGroup styleClass="form-group" layout="block">
+                    <h:outputLabel class="col-lg-2 control-label" for="nombre" value="Nombre Alojamiento"/> 
+                    <h:panelGroup layout="block" class="col-lg-10">
+                        <p class="form-control-static"><h:outputText value="#{alojamientobean.alojamiento.nombre_alojamiento}" id="nombre"/></p> 
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup styleClass="form-group" layout="block">
+                    <h:outputLabel class="col-lg-2 control-label" for="direccion" value="Direccion"/> 
+                    <h:panelGroup layout="block" class="col-lg-10">
+                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.direccion}" id="direccion"/>  
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup styleClass="form-group" layout="block">
+                    <h:outputLabel class="col-lg-2 control-label" for="telefono" value="Telefono"/> 
+                    <h:panelGroup layout="block" class="col-lg-10">
+                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.telefono}" id="telefono"/>  
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup styleClass="form-group" layout="block">
+                    <h:outputLabel class="col-lg-2 control-label" for="totalhab" value="Total habitaciones"/> 
+                    <h:panelGroup layout="block" class="col-lg-10">
+                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.total_habitaciones}" id="totalhab"/>  
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup styleClass="form-group" layout="block">
+                    <h:outputLabel class="col-lg-2 control-label" for="contacto" value="Contacto"/> 
+                    <h:panelGroup layout="block" class="col-lg-10">
+                        <h:selectOneMenu styleClass="form-control" value="#{alojamientobean.contactoSeleccionado}">
+                            <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                            <f:selectItems value="#{alojamientobean.listSelectItems}"/>
+                        </h:selectOneMenu>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:panelGroup styleClass="col-lg-offset-2 col-lg-10">
+                        <h:commandButton styleClass="btn btn-default" action="#{alojamientobean.actualizarAlojamiento}" value="Actualizar Alojamiento"/> 
+                    </h:panelGroup>
+                </h:panelGroup>
+
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+
+
+
 </html>
 

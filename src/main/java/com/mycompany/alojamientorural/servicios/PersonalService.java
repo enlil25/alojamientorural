@@ -7,11 +7,13 @@ package com.mycompany.alojamientorural.servicios;
 
 import com.mycompany.alojamientorural.entidades.Personal;
 import java.util.List;
+import javax.inject.Named;
 
 /**
  *
  * @author cesar
  */
+@Named("personalservice")
 public class PersonalService extends AbstractService<Personal, String> {
 
     public PersonalService() {

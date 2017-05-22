@@ -5,95 +5,103 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <h:head>
-        <title>Facelet Title</title>
-      
-    </h:head>
-    <h:body>
-        <h2>Asignacion de actividades de Alojamiento</h2>
-        <h:form>
-            <h:link outcome="/home" value="Home"/>
-            &nbsp;<h:link outcome="/Actividad/nuevaActividad" value="Nueva actividad"/>
-            &nbsp;<h:link outcome="/Actividad/listarActividades" value="Listar actividades"/>
-            &nbsp;<h:link outcome="/Alojamiento/nuevoAlojamiento" value="Nueva alojamiento"/>
-            &nbsp;<h:link outcome="/Alojamiento/listarAlojamientos" value="Listar alojamientos"/>
-        </h:form>
 
-        <h:form>
-            <h:outputLabel value="Alojamiento"/>
-            <h:selectOneMenu value="#{asignaactividadbean.codigoaloja}">
-                <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-                <f:selectItems value="#{asignaactividadbean.selectAlojamientos}"/>
-            </h:selectOneMenu>
-            <h:commandButton action="#{asignaactividadbean.verAsignaciones}" value="Mostrar asignaciones"/>
-        </h:form>
-
-        <h:outputText style="background-color: lightgrey;" value="#{asignaactividadbean.mensaje}"/>
-        <c:set var="numasig" value="#{asignaactividadbean.asignaciones.size()}"/>
-
-
-        <h:panelGroup rendered="#{numasig gt 0}">
-            <h:form onsubmit="return confirmarEliminacion();">  
-                <h:dataTable value="#{asignaactividadbean.asignaciones}" var="asignacion" border="1">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Codigo actividad."/>
-                        </f:facet>
-                        <h:outputText value="#{asignacion.id.actividad.codigo_activ}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nombre"/>
-                        </f:facet>
-                        <h:outputText value="#{asignacion.id.actividad.nombre}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Dia sem."/>
-                        </f:facet>
-                        <h:outputText value="#{asignacion.diaSemana}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Opcion"/>
-                        </f:facet>
-
-                        <h:commandLink action="#{asignaactividadbean.eliminarAsignacion(asignacion.id)}" value="eliminar"/> 
-                    </h:column>
-
-                </h:dataTable>
+    <ui:composition template="/resources/templates/layout.xhtml">
+        <ui:define name="title">Asignacion de Actividades</ui:define>
+        <ui:define name="content">
+            <h2>Asignacion de actividades de Alojamiento</h2>
+            <h:form styleClass="form-inline" role="form">
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:outputLabel for="alojamiento"  value="Nombre Alojamiento "/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:selectOneMenu id="alojamiento" styleClass="form-control" value="#{asignaactividadbean.codigoaloja}">
+                        <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                        <f:selectItems value="#{asignaactividadbean.selectAlojamientos}"/>
+                    </h:selectOneMenu>                   
+                </h:panelGroup> 
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:commandButton styleClass="btn btn-default" action="#{asignaactividadbean.verAsignaciones}" value="Mostrar asignaciones"/>
+                </h:panelGroup> 
             </h:form>
-        </h:panelGroup>
-        
-        <h:panelGroup layout="block">
-            <h3>Crear Asignacion</h3>
-            <h:form>
-                <h:outputText value="Alojamiento"/>
-                <h:selectOneMenu value="#{asignaactividadbean.alojaSel}">
-                    <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-                    <f:selectItems value="#{asignaactividadbean.selectAlojamientos}"/>
-                </h:selectOneMenu>
-                <h:outputText value="Dia Sem."/>
-                <h:selectOneMenu value="#{asignaactividadbean.diaSemana}">
-                    <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-                    <f:selectItem itemLabel="Lunes" itemValue="lunes"/>
-                    <f:selectItem itemLabel="Martes" itemValue="martes"/>
-                    <f:selectItem itemLabel="Miercoles" itemValue="miercoles"/>
-                    <f:selectItem itemLabel="Jueves" itemValue="jueves"/>
-                    <f:selectItem itemLabel="Viernes" itemValue="viernes"/>
-                    <f:selectItem itemLabel="Sabado" itemValue="sabado"/>
-                    <f:selectItem itemLabel="Domingo" itemValue="domingo"/>
-                </h:selectOneMenu>
-                <h:outputText value="Actividad"/>
-                <h:selectOneMenu value="#{asignaactividadbean.actividadSel}">
-                    <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
-                    <f:selectItems value="#{asignaactividadbean.selectActividades}"/>
-                </h:selectOneMenu>
-                <h:commandButton action="#{asignaactividadbean.asignar}" value="Asignar"/>
-            </h:form>
-        </h:panelGroup>
 
-  <h:outputScript library="js" name="funciones.js"/>
-    </h:body>
+            <h:outputText style="background-color: lightgrey;" value="#{asignaactividadbean.mensaje}"/>
+            <c:set var="numasig" value="#{asignaactividadbean.asignaciones.size()}"/>
+
+
+            <h:panelGroup rendered="#{numasig gt 0}">
+                <h:form styleClass="table-responsive" onsubmit="return confirmarEliminacion();">  
+                    <h:dataTable styleClass="table table-bordered table-condensed" value="#{asignaactividadbean.asignaciones}" var="asignacion" border="1">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Codigo actividad."/>
+                            </f:facet>
+                            <h:outputText value="#{asignacion.id.actividad.codigo_activ}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{asignacion.id.actividad.nombre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Dia sem."/>
+                            </f:facet>
+                            <h:outputText value="#{asignacion.diaSemana}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Opcion"/>
+                            </f:facet>
+
+                            <h:commandLink action="#{asignaactividadbean.eliminarAsignacion(asignacion.id)}" value="Eliminar"/> 
+                        </h:column>
+
+                    </h:dataTable>
+                </h:form>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block">
+                <h3>Crear Asignacion</h3>
+                <h:form styleClass="form-inline" role="form">
+
+                    <h:panelGroup layout="block" styleClass="form-group">
+                        <h:outputLabel for="alojam" value="Alojamiento"/>
+                        <h:selectOneMenu styleClass="form-control" id="alojam" value="#{asignaactividadbean.alojaSel}">
+                            <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                            <f:selectItems value="#{asignaactividadbean.selectAlojamientos}"/>
+                        </h:selectOneMenu>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="form-group">
+                        <h:outputLabel for="diasem" value="Dia Sem."/>
+                        <h:selectOneMenu styleClass="form-control"  id="diasem" value="#{asignaactividadbean.diaSemana}">
+                            <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                            <f:selectItem itemLabel="Lunes" itemValue="lunes"/>
+                            <f:selectItem itemLabel="Martes" itemValue="martes"/>
+                            <f:selectItem itemLabel="Miercoles" itemValue="miercoles"/>
+                            <f:selectItem itemLabel="Jueves" itemValue="jueves"/>
+                            <f:selectItem itemLabel="Viernes" itemValue="viernes"/>
+                            <f:selectItem itemLabel="Sabado" itemValue="sabado"/>
+                            <f:selectItem itemLabel="Domingo" itemValue="domingo"/>
+                        </h:selectOneMenu>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="form-group">
+                        <h:outputLabel for="actividad" value="Actividad"/>
+                        <h:selectOneMenu styleClass="form-control" id="actividad" value="#{asignaactividadbean.actividadSel}">
+                            <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
+                            <f:selectItems value="#{asignaactividadbean.selectActividades}"/>
+                        </h:selectOneMenu> 
+                    </h:panelGroup>
+
+                    <h:panelGroup layout="block" styleClass="form-group">
+                        <h:commandButton styleClass="btn btn-default" action="#{asignaactividadbean.asignar}" value="Asignar"/> 
+                    </h:panelGroup>
+
+                </h:form>
+            </h:panelGroup> 
+        </ui:define>
+    </ui:composition>
+
 </html>
 

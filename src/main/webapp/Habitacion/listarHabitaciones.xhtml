@@ -3,67 +3,66 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <h2>Listar habitaciones</h2>
-        <h:form>
-            <h:commandLink action="/home" value="Home"/>
-            &nbsp;<h:commandLink action="NuevaHabitacion" value="Nueva habitacion"/>
-        </h:form>
-        <c:set var="nreg" value="#{habitacionbean.listarHabitaciones().size()}"/>
-        <h:panelGroup rendered="#{nreg gt 0}">
-            <h:form>
-                <h:dataTable value="#{habitacionbean.listarHabitaciones()}" var="habitacion" border="1">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nom. Alojamiento"/>
-                        </f:facet>
-                        <h:outputText value="#{habitacion.id.alojamiento.nombre_alojamiento}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Num. habitacion"/>
-                        </f:facet>
-                        <h:outputText value="#{habitacion.id.numero_habitacion}"/> 
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Tipo"/>
-                        </f:facet>
-                        <h:outputText value="#{habitacion.tipo}"/> 
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="banio"/>
-                        </f:facet>
-                        <h:selectBooleanCheckbox value="#{habitacion.banio}" disabled="true"/>
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/resources/templates/layout.xhtml">
+        <ui:define name="title">Listar Habitaciones</ui:define>
+        <ui:define name="content">
+            <h2>Listado habitaciones</h2>
+            <c:set var="nreg" value="#{habitacionbean.listarHabitaciones().size()}"/>
+            <h:panelGroup rendered="#{nreg gt 0}">
+                <h:form styleClass="table-responsive">
+                    <h:dataTable styleClass="table table-bordered table-condensed" value="#{habitacionbean.listarHabitaciones()}" var="habitacion">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom. Alojamiento"/>
+                            </f:facet>
+                            <h:outputText value="#{habitacion.id.alojamiento.nombre_alojamiento}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Num. habitacion"/>
+                            </f:facet>
+                            <h:outputText value="#{habitacion.id.numero_habitacion}"/> 
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Tipo"/>
+                            </f:facet>
+                            <h:outputText value="#{habitacion.tipo}"/> 
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="banio"/>
+                            </f:facet>
+                            <h:selectBooleanCheckbox value="#{habitacion.banio}" disabled="true"/>
 
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Precio"/>
-                        </f:facet>
-                        <h:outputText value="#{habitacion.precio}"/> 
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Opcion1"/>
-                        </f:facet>
-                        <h:commandLink action="#{habitacionbean.vistaActualiza(habitacion.id)}" value="Actualizar"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Opcion2"/>
-                        </f:facet>
-                        <h:commandLink action="#{habitacionbean.vistaElimina(habitacion.id)}" value="Eliminar"/>
-                    </h:column>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Precio"/>
+                            </f:facet>
+                            <h:outputText value="#{habitacion.precio}"/> 
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Opcion1"/>
+                            </f:facet>
+                            <h:commandLink action="#{habitacionbean.vistaActualiza(habitacion.id)}" value="Editar"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Opcion2"/>
+                            </f:facet>
+                            <h:commandLink action="#{habitacionbean.vistaElimina(habitacion.id)}" value="Eliminar"/>
+                        </h:column>
 
-                </h:dataTable>
-            </h:form>
-        </h:panelGroup>
-    </h:body>
+                    </h:dataTable>
+                </h:form>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+
 </html>
 

@@ -46,6 +46,9 @@ public class PersonalBean {
     private void init() {
         listSelectItems = new ArrayList();
         cargarAlojamientos();
+        
+        //genera el codigo de personal al cargar
+        personal.setCodigo_p(generador.generarCodigoPersonal());
     }
 
     private void cargarAlojamientos() {
@@ -63,9 +66,9 @@ public class PersonalBean {
     public void crearPersonal() {
 
         //como el codigo es autogenerado debo seterlo
-        personal.setCodigo_p(generador.generarCodigoPersonal());
+        //personal.setCodigo_p(generador.generarCodigoPersonal());
 
-        System.err.println("error:" + personal.toString());
+       
         //y si tiene el alojamiento seleccionado
         if (alojamientoSeleccionado != null && alojamientoSeleccionado.length() > 0) {
             Alojamiento alojabusc = alojamientoService.find(alojamientoSeleccionado);

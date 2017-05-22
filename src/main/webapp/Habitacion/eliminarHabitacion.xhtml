@@ -2,38 +2,62 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        <h1>Eliminar habitacion</h1>
-        <p style="background-color: lightgrey">
-            <h:outputText value="#{habitacionbean.mensaje}"/>
-        </p>
-        <h:form>
-            <h:inputHidden value="#{habitacionbean.habitacion.id.alojamiento.nombre_alojamiento}"/>
-            <h:inputHidden value="#{habitacionbean.habitacion.id.numero_habitacion}"/>
-            <h:panelGrid columns="2">
-                <h:outputLabel for="numhab" value="Numero Habitacion"/>
-                <h:outputText id="numhab" value="#{habitacionbean.habitacion.id.numero_habitacion}"/>
-                <h:outputLabel for="nomaloja" value="Nombre Alojamiento"/>
-                <h:outputText value="#{habitacionbean.habitacion.id.alojamiento.nombre_alojamiento}"/>
-                <h:outputLabel for="tipo" value="Tipo"/>
-                <h:outputText value="#{habitacionbean.habitacion.tipo}"/>
-                <h:outputLabel value="Banio"/>
-                <h:outputText value="#{habitacionbean.habitacion.banio? 'si':'no'}"/>
-                <h:outputLabel value="Precio"/>
-                <h:outputText value="#{habitacionbean.habitacion.precio}"/>
-                <h:commandButton action="#{habitacionbean.eliminar}" value="Eliminar habitacion"/>
-            </h:panelGrid>
-        </h:form>
-        
-        <h:form>
-            <h:link outcome="/home" value="Home"/>
-            &nbsp;<h:link outcome="listarHabitaciones" value="Listar habitaciones"/>
-            &nbsp;<h:link outcome="NuevaHabitacion" value="Nueva habitacion"/>
-        </h:form>
-    </h:body>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="/resources/templates/layout.xhtml">
+        <ui:define name="title">Eliminar Habitacion</ui:define>
+        <ui:define name="content">
+            <h1>Eliminar habitacion</h1>
+            <p style="background-color: lightgrey">
+                <h:outputText value="#{habitacionbean.mensaje}"/>
+            </p>
+            <h:form styleClass="form-horizontal" role="form">
+                <h:inputHidden value="#{habitacionbean.habitacion.id.alojamiento.nombre_alojamiento}"/>
+                <h:inputHidden value="#{habitacionbean.habitacion.id.numero_habitacion}"/>
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:outputLabel for="numhab" styleClass="col-lg-2 control-label" value="Numero Habitacion"/>
+                    <h:panelGroup layout="block" styleClass="col-lg-10">
+                        <p class="form-control-static"><h:outputText  id="numhab" value="#{habitacionbean.habitacion.id.numero_habitacion}"/></p>
+                    </h:panelGroup> 
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:outputLabel styleClass="col-lg-2 control-label" for="nomaloja" value="Nombre Alojamiento"/>
+                    <h:panelGroup layout="block" styleClass="col-lg-10">
+                        <p class="form-control-static"><h:outputText id="nomaloja" value="#{habitacionbean.habitacion.id.alojamiento.nombre_alojamiento}"/></p>
+                    </h:panelGroup> 
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:outputLabel styleClass="col-lg-2 control-label" for="tipo" value="Tipo"/>
+                    <h:panelGroup layout="block" styleClass="col-lg-10">
+                        <p class="form-control-static"><h:outputText id="tipo" value="#{habitacionbean.habitacion.tipo}"/></p>
+                    </h:panelGroup> 
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:outputLabel for="banio" styleClass="col-lg-2 control-label" value="Banio"/>
+                    <h:panelGroup layout="block" styleClass="col-lg-10">
+                        <h:panelGroup layout="block" styleClass="checkbox">
+                            <label>
+                                <h:selectBooleanCheckbox  id="banio" value="#{habitacionbean.habitacion.banio}" disabled="true"/>
+                            </label> 
+                        </h:panelGroup>
+                    </h:panelGroup> 
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:outputLabel for="precio" styleClass="col-lg-2 control-label" value="Precio"/>
+                    <h:panelGroup layout="block" styleClass="col-lg-10">
+                        <p class="form-control-static"><h:outputText id="precio" value="#{habitacionbean.habitacion.precio}"/></p>                   
+                    </h:panelGroup> 
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="form-group">
+                    <h:panelGroup styleClass="col-lg-offset-2 col-lg-10">
+                        <h:commandButton styleClass="btn btn-default" action="#{habitacionbean.eliminar}" value="Eliminar Habitacion"/> 
+                    </h:panelGroup>
+                </h:panelGroup>
+
+            </h:form>  
+        </ui:define>
+    </ui:composition>
+
 </html>
 
