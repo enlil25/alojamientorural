@@ -10,12 +10,14 @@ import com.mycompany.alojamientorural.entidades.Alojamiento;
 import com.mycompany.alojamientorural.entidades.Alojamiento_actividad;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 /**
  *
  * @author cesar
  */
+@Stateless
 public class AlojamientoService extends AbstractService<Alojamiento, String> {
 
     public AlojamientoService() {

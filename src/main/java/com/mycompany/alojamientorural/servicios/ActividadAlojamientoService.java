@@ -7,11 +7,13 @@ package com.mycompany.alojamientorural.servicios;
 
 import com.mycompany.alojamientorural.entidades.Alojamiento_actividad;
 import com.mycompany.alojamientorural.entidades.Alojamiento_actividad_PK;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author cesar
  */
+@Stateless
 public class ActividadAlojamientoService extends AbstractService<Alojamiento_actividad,Alojamiento_actividad_PK>{
     
     public ActividadAlojamientoService() {

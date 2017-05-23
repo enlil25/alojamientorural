@@ -9,8 +9,8 @@ import com.mycompany.alojamientorural.entidades.Actividad;
 import com.mycompany.alojamientorural.entidades.Personal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
  */
 public class GeneradorCodigos {
     
-    @PersistenceContext(unitName="alojamiento_rural_PU")
+    @Inject
     private EntityManager em;
     
     public String generarCodigoActividad() {

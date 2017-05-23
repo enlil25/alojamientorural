@@ -7,12 +7,14 @@ package com.mycompany.alojamientorural.servicios;
 
 import com.mycompany.alojamientorural.entidades.Actividad;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 /**
  *
  * @author cesar
  */
+@Stateless
 public class ActividadService extends AbstractService<Actividad, String> {
 
     public ActividadService() {
