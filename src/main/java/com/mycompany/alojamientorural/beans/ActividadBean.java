@@ -11,6 +11,8 @@ import com.mycompany.alojamientorural.utiles.GeneradorCodigos;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -36,7 +38,7 @@ public class ActividadBean {
 
     //private List<Actividad> actividades;
     private String mensaje;
-    
+
     private List<Actividad> encontradosBusqueda;
 
     @PostConstruct
@@ -48,8 +50,10 @@ public class ActividadBean {
 
         actividad.setCodigo_activ(generador.generarCodigoActividad());
         actividadService.persist(actividad);
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Actividad creada", "Actividad " + actividad.getNombre() + " creada correctamente"));
 
-        mensaje = "Actividad creada correctamente";
+        //mensaje = "Actividad creada correctamente";
     }
 
     public String vistaActualiza(String codigo) {
@@ -109,23 +113,22 @@ public class ActividadBean {
         }
         return encontrados;
     }
-    
-     public List<Actividad> buscarActividad(Actividad actividad) {
+
+    public List<Actividad> buscarActividad(Actividad actividad) {
         List<Actividad> encontrados = null;
 
-       // System.err.println(actividad.getNombre() == null ? "nombre es null":"nombre es diferente a null");
-        
+        // System.err.println(actividad.getNombre() == null ? "nombre es null":"nombre es diferente a null");
         encontrados = actividadService.buscarPorCodigo(actividad.getCodigo_activ());
         if (encontrados.isEmpty()) {
-            encontrados = actividadService.buscarPorOtros(actividad.getNombre(), actividad.getDescripcion(), actividad.getNivel_dificultad()  );
+            encontrados = actividadService.buscarPorOtros(actividad.getNombre(), actividad.getDescripcion(), actividad.getNivel_dificultad());
         }
         return encontrados;
     }
 
     public void buscarActividad() {
 
-      encontradosBusqueda = buscarActividad(actividad);
-        
+        encontradosBusqueda = buscarActividad(actividad);
+
         //return "home";
     }
 
@@ -151,7 +154,5 @@ public class ActividadBean {
     public List<Actividad> getEncontradosBusqueda() {
         return encontradosBusqueda;
     }
-    
-    
 
 }

@@ -33,7 +33,11 @@
                 <h:panelGroup styleClass="form-group" layout="block">
                     <h:outputLabel class="col-lg-2 control-label" for="totalhab" value="Total habitaciones"/> 
                     <h:panelGroup layout="block" class="col-lg-10">
-                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.total_habitaciones}" id="totalhab"/>  
+                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.total_habitaciones}" id="totalhab">
+                            <f:convertNumber type="number"/>
+                            <f:validateLongRange minimum="1"/>
+                        </h:inputText>
+                        <h:message for="totalhab" styleClass="error01"/>
                     </h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup styleClass="form-group" layout="block">

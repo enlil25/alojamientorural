@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -40,15 +42,15 @@ public class AlojamientoBean {
     private List<SelectItem> listSelectItems;
     //codigo de personal de contacto seleccionado
     private String contactoSeleccionado;
-    
+
     //codigo de actividad seleccionado
     private String actividadSel;
     // listado selectItem para actividades
     private List<SelectItem> listSelectItemsActividad;
-    
+
     @Inject
     private ActividadService actividadService;
-    
+
     //para guardar el dia se la semana
     private String diaSemana;
 
@@ -59,10 +61,10 @@ public class AlojamientoBean {
         cargarPersonalContactos();
         cargarActividades();
     }
-    
-    private void cargarActividades(){
-         List<Actividad> listadoActividades = actividadService.listAll();
-        
+
+    private void cargarActividades() {
+        List<Actividad> listadoActividades = actividadService.listAll();
+
         if (!listadoActividades.isEmpty()) {
             for (Actividad p : listadoActividades) {
                 SelectItem sitem = new SelectItem();
@@ -70,7 +72,7 @@ public class AlojamientoBean {
                 sitem.setValue(p.getCodigo_activ());
                 listSelectItemsActividad.add(sitem);
             }
-        }  
+        }
     }
 
     private void cargarPersonalContactos() {
@@ -85,7 +87,7 @@ public class AlojamientoBean {
             }
         }
     }
-    
+
     private void cargarPersonalPorAlojamiento(String codigoaloja) {
         //List<Personal> listadoPersonal = personalService.listAll();
         List<Personal> listadoPersonal = personalService.listarPersonalPorAlojamiento(codigoaloja);
@@ -101,33 +103,36 @@ public class AlojamientoBean {
 
     public void crearAlojamiento() {
 
-        alojamientoService.persist(alojamiento);
-
-        mensaje = "Alojamiento creado correctamente";
+        Alojamiento aloj = alojamientoService.find(alojamiento.getNombre_alojamiento());
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        if (aloj != null) {
+            ctx.addMessage("formuA:nombre", new FacesMessage(FacesMessage.SEVERITY_INFO, "Alojamiento ya existe", "Alojamiento '" + alojamiento.getNombre_alojamiento() + "' ya se encuentra registrado"));
+        } else {
+            alojamientoService.persist(alojamiento);
+            ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Alojamiento fue creado", "Alojamiento " + alojamiento.getNombre_alojamiento() + "se creo correctamente"));
+        }
     }
 
     public String vistaActualiza(String codigo) {
-        
+
         //carga el personal por alojamiento --temporalmente
-       // cargarPersonalPorAlojamiento(codigo);
-       
-         //buscamos la actividad y la enviamos a la pagina de edicion
+        // cargarPersonalPorAlojamiento(codigo);
+        //buscamos la actividad y la enviamos a la pagina de edicion
         //Actividad buscado = actividadService.find(codigo);
         alojamiento = alojamientoService.find(codigo);
-        
-        if(alojamiento!=null){
+
+        if (alojamiento != null) {
             contactoSeleccionado = alojamiento.getContacto() == null ? "" : alojamiento.getContacto().getCodigo_p();
         }
-                
-        
+
         return "actualizarAlojamiento";
     }
 
     public String vistaElimina(String codigo) {
         alojamiento = alojamientoService.find(codigo);
-        if(alojamiento!=null && alojamiento.getContacto() !=null){
+        if (alojamiento != null && alojamiento.getContacto() != null) {
             contactoSeleccionado = alojamiento.getContacto().getNombre();
-        }else{
+        } else {
             contactoSeleccionado = "";
         }
         return "eliminarAlojamiento";
@@ -136,19 +141,18 @@ public class AlojamientoBean {
     public void actualizarAlojamiento() {
 
         //buscamos la actividad
-        
         //si se selecciono un contacto
         //se busca ese contacto por el codigo pasado y se obtiene una referencia
         //para actualizarlo en alojamiento
         //sino se establece contacto en null
         //posteriormente el usuario editara
-        if(contactoSeleccionado!=null && contactoSeleccionado.length() > 0){
-            Personal personalbusc =  personalService.find(contactoSeleccionado);
+        if (contactoSeleccionado != null && contactoSeleccionado.length() > 0) {
+            Personal personalbusc = personalService.find(contactoSeleccionado);
             alojamiento.setContacto(personalbusc);
-        }else{
+        } else {
             alojamiento.setContacto(null);
         }
-        
+
         alojamientoService.merge(alojamiento);
         mensaje = "Alojamiento fue actualizado";
 
@@ -223,10 +227,5 @@ public class AlojamientoBean {
     public void setDiaSemana(String diaSemana) {
         this.diaSemana = diaSemana;
     }
-    
-    
-    
-    
-    
 
 }

@@ -12,8 +12,12 @@ import com.mycompany.alojamientorural.servicios.PersonalService;
 import com.mycompany.alojamientorural.utiles.GeneradorCodigos;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -41,12 +45,13 @@ public class PersonalBean {
 
     @Inject
     private GeneradorCodigos generador;
+    private static final Logger LOG = Logger.getLogger(PersonalBean.class.getName());
 
     @PostConstruct
     private void init() {
         listSelectItems = new ArrayList();
         cargarAlojamientos();
-        
+
         //genera el codigo de personal al cargar
         personal.setCodigo_p(generador.generarCodigoPersonal());
     }
@@ -67,14 +72,23 @@ public class PersonalBean {
 
         //como el codigo es autogenerado debo seterlo
         //personal.setCodigo_p(generador.generarCodigoPersonal());
+        FacesContext ctx = FacesContext.getCurrentInstance();
 
-       
         //y si tiene el alojamiento seleccionado
         if (alojamientoSeleccionado != null && alojamientoSeleccionado.length() > 0) {
             Alojamiento alojabusc = alojamientoService.find(alojamientoSeleccionado);
             personal.setAlojamiento(alojabusc);
-            personalService.persist(personal);
-            mensaje = "Personal creado correctamente";
+
+            //busca por nif
+            Personal per = personalService.buscarPersonalPorNIF(personal.getNIF());
+
+            if (per != null) {
+                ctx.addMessage("formu22:nif", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Numero NIF Ya existe", "Numero NIF:" + personal.getNIF() + " ya se encuentra registrado"));
+            } else {
+                personalService.persist(personal);
+                mensaje = "Personal creado correctamente";
+            }
+
         } else {
             //en este caso el personal debe trabajar obligatoriamente en un alojamiento
             //y no se puede postergar en la edicion
@@ -107,6 +121,7 @@ public class PersonalBean {
 
     public void actualizarPersonal() {
 
+        FacesContext ctx = FacesContext.getCurrentInstance();
         //buscamos la actividad
         //si se selecciono un contacto
         //se busca ese contacto por el codigo pasado y se obtiene una referencia
@@ -116,8 +131,20 @@ public class PersonalBean {
         if (alojamientoSeleccionado != null && alojamientoSeleccionado.length() > 0) {
             Alojamiento alojabusc = alojamientoService.find(alojamientoSeleccionado);
             personal.setAlojamiento(alojabusc);
-            personalService.merge(personal);
-            mensaje = "Personal fue actualizado";
+
+            //busca por nif
+            Personal per = personalService.buscarPersonalPorNIF(personal.getNIF());
+            if (per != null) {
+                if (personal.getCodigo_p().equals(per.getCodigo_p())) {
+                    personalService.merge(personal);
+                    mensaje = "Personal fue actualizado";
+                } else {
+                    ctx.addMessage("formu22:nif", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Numero NIF Ya existe", "Numero NIF:" + personal.getNIF() + " ya se encuentra registrado"));
+                }
+            } else {
+                personalService.merge(personal);
+                mensaje = "Personal fue actualizado";
+            }
         } else {
             personal.setAlojamiento(null);
             mensaje = "Debe seleccionar un alojamiento porque es obligatorio";

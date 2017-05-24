@@ -9,7 +9,7 @@
         <ui:define name="content">
             <h1>Editar personal</h1>   
             <p style="background-color:lightgrey">#{personalbean.mensaje}</p>
-            <h:form styleClass="form-horizontal" role="form">
+            <h:form id="formu22" styleClass="form-horizontal" role="form">
                 <h:inputHidden value="#{personalbean.personal.codigo_p}" />
                 <h:panelGroup layout="block" styleClass="form-group">
                     <h:outputLabel for="codigo" styleClass="col-lg-2 control-label" value="Codigo"/>
@@ -20,7 +20,10 @@
                 <h:panelGroup layout="block" styleClass="form-group">
                     <h:outputLabel for="nombre" styleClass="col-lg-2 control-label" value="Nombre"/>
                     <h:panelGroup layout="block" styleClass="col-lg-10">
-                        <h:inputText styleClass="form-control" value="#{personalbean.personal.nombre}" id="nombre"/> 
+                        <h:inputText styleClass="form-control" value="#{personalbean.personal.nombre}" id="nombre">
+                            <f:validateLength minimum="3" maximum="50"/>
+                        </h:inputText>
+                        <h:message for="nombre" styleClass="error01"/>
                     </h:panelGroup> 
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="form-group">
@@ -32,7 +35,11 @@
                 <h:panelGroup layout="block" styleClass="form-group">
                     <h:outputLabel for="nif" styleClass="col-lg-2 control-label" value="NIF"/>
                     <h:panelGroup layout="block" styleClass="col-lg-10">
-                        <h:inputText styleClass="form-control" value="#{personalbean.personal.NIF}" id="nif"/> 
+                        <h:inputText styleClass="form-control" value="#{personalbean.personal.NIF}" id="nif" required="true">
+                            <f:convertNumber type="number"/>
+                            <f:validateLength minimum="8" maximum="8"/>
+                        </h:inputText> 
+                        <h:message for="nif" styleClass="error01"/>
                     </h:panelGroup> 
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="form-group">

@@ -20,7 +20,10 @@
                 <h:panelGroup layout="block" styleClass="form-group">
                     <h:outputLabel for="nombre" styleClass="col-lg-2 control-label" value="Nombre"/>
                     <h:panelGroup layout="block" styleClass="col-lg-10">
-                        <h:inputText styleClass="form-control" value="#{actividadbean.actividad.nombre}" id="nombre"/>
+                        <h:inputText styleClass="form-control" value="#{actividadbean.actividad.nombre}" id="nombre">
+                            <f:validateLength minimum="3" maximum="30"/>
+                        </h:inputText>
+                        <h:message for="nombre" styleClass="error01"/>
                     </h:panelGroup> 
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="form-group">

@@ -9,6 +9,8 @@ import com.mycompany.alojamientorural.entidades.Personal;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 
 /**
  *
@@ -28,6 +30,24 @@ public class PersonalService extends AbstractService<Personal, String> {
                 .setParameter("nombrealoja", nombrealoja).getResultList();
 
         return listado;
+    }
+
+    public Personal buscarPersonalPorNIF(String nif) {
+
+        Personal personal = null;
+        try {
+            personal = em.createQuery("select p from Personal p where p.NIF = :nif", Personal.class).setParameter("nif", nif).getSingleResult();
+
+        } catch (NoResultException e) {
+
+            personal = null;
+
+        } catch (NonUniqueResultException e) {
+
+            personal = find(nif);
+        }
+
+        return personal;
     }
 
 }

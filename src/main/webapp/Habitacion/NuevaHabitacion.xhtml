@@ -10,22 +10,27 @@
             <h1>Nueva habitacion</h1>
             <p>Complete los datos para crear una habitacion en el sistema</p>
             <p>Acuerdese que para crear una habitacion debe existir un alojamiento</p>
-            <p style="color:red;"><h:message for="numhab"/></p>
             <h:outputText style="background-color: lightgray" value="#{habitacionbean.mensaje}"/>
-            <h:form styleClass="form-horizontal" role="form">
+            <h:form id="formu22" styleClass="form-horizontal" role="form">
                 <h:panelGroup layout="block" styleClass="form-group">
                     <h:outputLabel for="numhab" styleClass="col-lg-2 control-label" value="Numero Habitacion"/>
                     <h:panelGroup layout="block" styleClass="col-lg-10">
-                        <h:inputText required="true" styleClass="form-control" id="numhab" value="#{habitacionbean.habitacion.id.numero_habitacion}"/>
+                        <h:inputText styleClass="form-control" id="numhab" value="#{habitacionbean.habitacion.id.numero_habitacion}" required="true">
+                            <f:convertNumber type="number"/>
+                            <f:validateLongRange minimum="1" maximum="100"/>
+                        </h:inputText>
+                        <h:message for="numhab" styleClass="error01"/>
                     </h:panelGroup> 
+
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="form-group">
                     <h:outputLabel styleClass="col-lg-2 control-label" for="nomaloja" value="Nombre Alojamiento"/>
                     <h:panelGroup layout="block" styleClass="col-lg-10">
-                        <h:selectOneMenu styleClass="form-control" id="nomaloja" value="#{habitacionbean.habitacion.id.alojamiento.nombre_alojamiento}">
+                        <h:selectOneMenu styleClass="form-control" id="nomaloja" value="#{habitacionbean.habitacion.id.alojamiento.nombre_alojamiento}" required="true">
                             <f:selectItem itemLabel="--Seleccione--" itemValue=""/>
                             <f:selectItems value="#{habitacionbean.cargarSelectAlojamientos()}"/>
                         </h:selectOneMenu>
+                        <h:message for="nomaloja" styleClass="error01"/>
                     </h:panelGroup> 
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="form-group">
@@ -53,8 +58,12 @@
                 <h:panelGroup layout="block" styleClass="form-group">
                     <h:outputLabel for="precio" styleClass="col-lg-2 control-label" value="Precio"/>
                     <h:panelGroup layout="block" styleClass="col-lg-10">
-                        <h:inputText styleClass="form-control" id="precio" value="#{habitacionbean.habitacion.precio}"/>                   
+                        <h:inputText styleClass="form-control" id="precio" value="#{habitacionbean.habitacion.precio}">
+                            <f:convertNumber type="number"/>
+                        </h:inputText>  
+                        <h:message for="precio" styleClass="error01"/>
                     </h:panelGroup> 
+
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="form-group">
                     <h:panelGroup styleClass="col-lg-offset-2 col-lg-10">

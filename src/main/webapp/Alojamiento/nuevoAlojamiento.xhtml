@@ -8,13 +8,17 @@
     <ui:composition template="/resources/templates/layout.xhtml">
         <ui:define name="title">Crear Alojamiento</ui:define>
         <ui:define name="content">
-            <h1>Nueva Alojamiento</h1>   
-            <p style="background-color:lightgrey">#{alojamientobean.mensaje}</p>
-            <h:form class="form-horizontal" role="form">    
+            <h1>Nueva Alojamiento</h1>         
+            <h:messages style="background-color:lightgrey" globalOnly="true" layout="list"/>
+          
+            <h:form id="formuA" class="form-horizontal" role="form">   
                 <h:panelGroup styleClass="form-group" layout="block">
                     <h:outputLabel class="col-lg-2 control-label" for="nombre" value="Nombre Alojamiento"/> 
                     <h:panelGroup layout="block" class="col-lg-10">
-                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.nombre_alojamiento}" id="nombre"/>  
+                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.nombre_alojamiento}" id="nombre">
+                            <f:validateLength minimum="3" maximum="30"/>
+                        </h:inputText>  
+                        <h:message for="nombre" styleClass="error01"/>
                     </h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup styleClass="form-group" layout="block">
@@ -27,12 +31,16 @@
                     <h:outputLabel class="col-lg-2 control-label" for="telefono" value="Telefono"/> 
                     <h:panelGroup layout="block" class="col-lg-10">
                         <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.telefono}" id="telefono"/>  
-                    </h:panelGroup>
+                    </h:panelGroup>   
                 </h:panelGroup>
                 <h:panelGroup styleClass="form-group" layout="block">
                     <h:outputLabel class="col-lg-2 control-label" for="totalhab" value="Total habitaciones"/> 
                     <h:panelGroup layout="block" class="col-lg-10">
-                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.total_habitaciones}" id="totalhab"/>  
+                        <h:inputText styleClass="form-control" value="#{alojamientobean.alojamiento.total_habitaciones}" id="totalhab">
+                            <f:convertNumber type="number"/>
+                            <f:validateLongRange minimum="1"/>
+                        </h:inputText>  
+                        <h:message for="totalhab" styleClass="error01" />
                     </h:panelGroup>
                 </h:panelGroup>
                 <h:panelGroup styleClass="form-group" layout="block">
